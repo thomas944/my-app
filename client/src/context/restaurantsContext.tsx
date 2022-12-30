@@ -17,21 +17,26 @@ interface Props {
 }
 
 type RestaurantContextType = {
-  restaurants: IRestaurant[];
-  setRestaurants: React.Dispatch<React.SetStateAction<any>>
+  context: IRestaurant[];
+  setContext: React.Dispatch<React.SetStateAction<any>>
+  addContext: React.Dispatch<React.SetStateAction<any>>
 } 
 
 const IRestaurantContextState = {
-  restaurants: [],
-  setRestaurants: () => {}
+  context: [],
+  setContext: () => {},
+  addContext: () => {},
 }
 
 export const RestaurantsContext = createContext<RestaurantContextType>(IRestaurantContextState);
 //export const RestaurantsContext = createContext<RestaurantContextType | null>(null);
 
 export const RestaurantsContextProvider: React.FC<Props> = ({ children }) => {
-  const [restaurants, setRestaurants] = useState([]);
+  const [context, setContext] = useState([] as any);
 
+  const addContext = (restaurant:any) => {
+    setContext([...context, restaurant])
+  }
   // const providerValue: RestaurantContextType = {
   //   restaurants,
   //   setRestaurants,
@@ -43,7 +48,7 @@ export const RestaurantsContextProvider: React.FC<Props> = ({ children }) => {
   //     </RestaurantsContext.Provider>
   // )
   return (
-    <RestaurantsContext.Provider value={{restaurants,setRestaurants}}>
+    <RestaurantsContext.Provider value={{context, setContext, addContext}}>
       {children}
     </RestaurantsContext.Provider>
   )

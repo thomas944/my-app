@@ -1,6 +1,20 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import { addRestaurant } from '../api/api.ts';
+import { RestaurantsContext } from '../context/restaurantsContext.tsx'
 
 const AddRestaurant = () => {
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [priceRange, setPriceRange] = useState('Price Range');
+  const { addContext } = useContext(RestaurantsContext);
+;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addRestaurant(name,location,priceRange).then(response => addContext (response.restaurants));
+    setName('');
+    setLocation('');
+    setPriceRange('Price Range');
+  }
 
   return (
     <div className="mb-4">
@@ -8,26 +22,26 @@ const AddRestaurant = () => {
         <div className="form-row">
           <div className="col">
             <input
-              //value={name}
-              //onChange={(e) => setName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               type="text"
               className="form-control"
-              placeholder="name"
+              placeholder="Name"
             />
           </div>
           <div className="col">
             <input
-              //value={location}
-              //onChange={(e) => setLocation(e.target.value)}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
               className="form-control"
               type="text"
-              placeholder="location"
+              placeholder="Location"
             />
           </div>
           <div className="col">
             <select
-              //value={priceRange}
-              //onChange={(e) => setPriceRange(e.target.value)}
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
               className="custom-select"
             >
               <option disabled>Price Range</option>
@@ -39,7 +53,7 @@ const AddRestaurant = () => {
             </select>
           </div>
           <button
-            //onClick={handleSubmit}
+            onClick={handleSubmit}
             type="submit"
             className="btn btn-primary"
           >

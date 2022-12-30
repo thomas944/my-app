@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react'
-import { getRestaurants } from '../api/api.ts'
+import { getRestaurants, deleteRestaurant } from '../api/api.ts'
 import { RestaurantsContext } from '../context/restaurantsContext.tsx'
+import { useNavigate } from 'react-router-dom'
 
 
 const RestaurantList = () => {
@@ -8,12 +9,25 @@ const RestaurantList = () => {
   //   restaurants,
   //   setRestaurants(),
   // }
-  const {restaurants, setRestaurants} = useContext(RestaurantsContext)
-  
+  const {context, setContext} = useContext(RestaurantsContext)
+  let history = useNavigate();
+
+
   useEffect(() => {
-    (getRestaurants().then(response => setRestaurants(response.data.restaurants)))
+    (getRestaurants().then(response => setContext(response.data.restaurants)))
 
   },[])
+
+  const handleDelete = (id:Number) => {
+    deleteRestaurant(id);
+    setContext(context.filter((restaurant) => {
+      return restaurant.id !== id;
+    }) )
+  }
+
+  const handleUpdate = (id:Number) => {
+
+  }
 
   return (
     <div className='list-group'>
@@ -29,7 +43,7 @@ const RestaurantList = () => {
           </tr>
         </thead>
         <tbody>
-          {restaurants && restaurants.map(restaurant => {
+          {context && context.map(restaurant => {
             return (
               <tr key={restaurant.id}>
                 <td>{restaurant.name}</td>
@@ -37,10 +51,10 @@ const RestaurantList = () => {
                 <td>{'$'.repeat(restaurant.price_range)}</td>
                 <td>reviews</td>
                 <td>
-                  <button className="btn btn-warning">Update</button>
+                  <button onClick={() => handleUpdate(restaurant.id)} className="btn btn-warning">Update</button>
                 </td>
                 <td>
-                  <button className="btn btn-danger">Delete</button>
+                  <button onClick={() => handleDelete(restaurant.id)} className="btn btn-danger">Delete</button>
                 </td>
               </tr>
             )
