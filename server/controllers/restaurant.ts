@@ -8,6 +8,13 @@ interface Post {
   price_range: Number;
 }
 
+interface Review {
+  id: Number;
+  name: String;
+  review: String;
+  rating: Number;
+}
+
 /** METHOD: GET */
 /** ROUTE: http://localhost:4000/api/v1/restaurants/ */
 export const getAllRestaurants = async (_req: Request,res: Response) => {
@@ -50,14 +57,20 @@ export const createRestaurant = async (_req: Request,res: Response) => {
 /** ROUTE: http://localhost:4000/api/v1/restaurants/:id */
 export const getRestaurant = async (_req: Request,res: Response) => {
   try {
-    const results = await db.query('SELECT * FROM restaurants WHERE id = $1', [_req.params.id]);
-    const post: Post = results.rows[0]
+    let results = await db.query('SELECT * FROM restaurants WHERE id = $1', [_req.params.id]);
+    const post: Post = results.rows[0];
+
+    results = await db.query('SELECT * FROM reviews WHERE restaurant_id = $1', [_req.params.id]);
+    const reviews: Review = results.rows;
+
     res.status(200).json({
       status:"success",
       data: {
-        restaurant: post
+        restaurant: post,
+        reviews: reviews,
       }
     })
+
   } catch(err:any) {
     console.log(err)
   }

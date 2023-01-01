@@ -18,14 +18,16 @@ const RestaurantList = () => {
 
   },[])
 
-  const handleDelete = (id:Number) => {
+  const handleDelete = (e, id:Number) => {
+    e.stopPropagation();
     deleteRestaurant(id);
     setContext(context.filter((restaurant) => {
       return restaurant.id !== id;
     }) )
   }
 
-  const handleUpdate = (id:Number) => {
+  const handleUpdate = (e, id:Number) => {
+    e.stopPropagation();
     navigate(`/restaurants/${id}/update`);
   }
 
@@ -49,16 +51,16 @@ const RestaurantList = () => {
         <tbody>
           {context && context.map(restaurant => {
             return (
-              <tr onCLick={() => handleRestaurantSelect(restaurant.id)}key={restaurant.id}>
+              <tr onClick={() => handleRestaurantSelect(restaurant.id)}key={restaurant.id}>
                 <td>{restaurant.name}</td>
                 <td>{restaurant.location}</td>
                 <td>{'$'.repeat(restaurant.price_range)}</td>
                 <td>reviews</td>
                 <td>
-                  <button onClick={() => handleUpdate(restaurant.id)} className="btn btn-warning">Update</button>
+                  <button onClick={(e) => handleUpdate(e, restaurant.id)} className="btn btn-warning">Update</button>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(restaurant.id)} className="btn btn-danger">Delete</button>
+                  <button onClick={(e) => handleDelete(e, restaurant.id)} className="btn btn-danger">Delete</button>
                 </td>
               </tr>
             )

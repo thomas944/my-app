@@ -40,7 +40,7 @@ export const getRestaurant = async (id:Number) => {
     baseURL: 'http://localhost:4000/api/v1/restaurants'
   })
   const response = await instance.get(`/${id}`);
-  return response.data.data.restaurant
+  return response.data.data
 }
 
 export const updateRestaurant = async (id:String,name:String,location:String,price_range:Number) => {

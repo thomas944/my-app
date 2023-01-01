@@ -37,16 +37,7 @@ export const RestaurantsContextProvider: React.FC<Props> = ({ children }) => {
   const addContext = (restaurant:any) => {
     setContext([...context, restaurant])
   }
-  // const providerValue: RestaurantContextType = {
-  //   restaurants,
-  //   setRestaurants,
-  // };
-  
-  // return (
-  //     <RestaurantsContext.Provider value={providerValue}>
-  //       {children}
-  //     </RestaurantsContext.Provider>
-  // )
+
   return (
     <RestaurantsContext.Provider value={{context, setContext, addContext}}>
       {children}
