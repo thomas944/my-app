@@ -18,16 +18,26 @@ const RestaurantDetailPage = () => {
     fetchData(id)
   },[])
 
-  return (
-
+  if(currRes){
+    return (
       <>
       <h1 className='text-center display-1'>{currRes.restaurant.name}</h1>
+      <div className='text-center'>
+        <Rating rating={currRes.restaurant.average_rating}/>
+        <span className='text ml-1'>
+        {currRes.restaurant.count
+                ? `(${currRes.restaurant.count})`
+                : "(0)"}
+        </span>
+      </div>
       <div className="mt-3">
         <Reviews reviews={currRes} />
       </div>
       <AddReview />
       </>
   )
+  }
+ 
 }
 
 export default RestaurantDetailPage

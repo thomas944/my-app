@@ -55,3 +55,15 @@ export const updateRestaurant = async (id:String,name:String,location:String,pri
 
   return updatedRestaurant;
 }
+
+export const addReview = async (restaurant_id:String,name:String,review:String,rating:Number) => {
+  const instance:AxiosInstance = axios.create({
+    baseURL: 'http://localhost:4000/api/v1/restaurants'
+  })
+  const newReview = await instance.post(`/${restaurant_id}/addReview`,{
+    name,
+    review,
+    rating
+  })
+  console.log(newReview)
+}

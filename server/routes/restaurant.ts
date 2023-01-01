@@ -4,7 +4,8 @@ import {
   getAllRestaurants, 
   createRestaurant, 
   deleteRestaurant, 
-  updateRestaurant 
+  updateRestaurant,
+  addReview,
 } from "../controllers/restaurant"
 
 const router = Router();
@@ -18,5 +19,9 @@ router
   .get(getRestaurant)
   .delete(deleteRestaurant)
   .put(updateRestaurant)
+
+router
+  .route('/:id/addReview')
+  .post(addReview)
   
 export default router

@@ -13,9 +13,9 @@ const UpdateRestaurant = (props) => {
 
   const fetchData = async (id:any) => {
     const response = await getRestaurant(id)
-    setName(response.name);
-    setLocation(response.location);
-    setPriceRange(response.price_range);
+    setName(response.restaurant.name);
+    setLocation(response.restaurant.location);
+    setPriceRange(response.restaurant.price_range);
   }
 
   const handleSubmit = async (e, id:any,name:String,location:String,priceRange:String) => {

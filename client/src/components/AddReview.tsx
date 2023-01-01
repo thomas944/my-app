@@ -1,9 +1,19 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { addReview } from '../api/api.ts';
+
 
 const AddReview = () => {
+  const { id } = useParams();
   const [name, setName] = useState('');
   const [rating, setRating] = useState('Rating');
   const [reviewText, setReviewText] = useState('');
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+    addReview(id, name, reviewText, rating);
+    window.location.reload();
+  }
 
 
   return (
@@ -48,7 +58,7 @@ const AddReview = () => {
 
             </textarea>
         </div>
-        <button className="btn btn-primary">Submit</button>
+        <button onClick={handleSubmitReview} className="btn btn-primary">Submit</button>
       </form>
     </div>
   )
