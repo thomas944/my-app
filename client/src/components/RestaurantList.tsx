@@ -10,7 +10,7 @@ const RestaurantList = () => {
   //   setRestaurants(),
   // }
   const {context, setContext} = useContext(RestaurantsContext)
-  let history = useNavigate();
+  let navigate = useNavigate();
 
 
   useEffect(() => {
@@ -26,7 +26,11 @@ const RestaurantList = () => {
   }
 
   const handleUpdate = (id:Number) => {
+    navigate(`/restaurants/${id}/update`);
+  }
 
+  const handleRestaurantSelect = (id:Number) => {
+    navigate(`/restaurants/${id}`);
   }
 
   return (
@@ -45,7 +49,7 @@ const RestaurantList = () => {
         <tbody>
           {context && context.map(restaurant => {
             return (
-              <tr key={restaurant.id}>
+              <tr onCLick={() => handleRestaurantSelect(restaurant.id)}key={restaurant.id}>
                 <td>{restaurant.name}</td>
                 <td>{restaurant.location}</td>
                 <td>{'$'.repeat(restaurant.price_range)}</td>

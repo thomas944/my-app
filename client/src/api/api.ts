@@ -33,6 +33,25 @@ export const deleteRestaurant = async (id:Number) => {
     baseURL: 'http://localhost:4000/api/v1/restaurants'
   })
   const response = await instance.delete(`/${id}`);
-  //console.log(response)
+}
 
+export const getRestaurant = async (id:Number) => {
+  const instance:AxiosInstance = axios.create({
+    baseURL: 'http://localhost:4000/api/v1/restaurants'
+  })
+  const response = await instance.get(`/${id}`);
+  return response.data.data.restaurant
+}
+
+export const updateRestaurant = async (id:String,name:String,location:String,price_range:Number) => {
+  const instance:AxiosInstance = axios.create({
+    baseURL: 'http://localhost:4000/api/v1/restaurants'
+  })
+  const updatedRestaurant = await instance.put(`/${id}`,{
+    name,
+    location,
+    price_range
+  })
+
+  return updatedRestaurant;
 }
