@@ -8,6 +8,8 @@ interface IRestaurant {
 }
 
 
+const baseURL = process.env.NODE_ENV === 'production' ? 'api/v1/restaurants' : 
+'http://localhost:4000/api/v1/restaurants'
 export const getRestaurants = async ():Promise<IRestaurant[]> => {
   const instance:AxiosInstance = axios.create({
     baseURL: 'http://localhost:4000/api/v1/restaurants'
